@@ -10,7 +10,7 @@ public class Seckill {
 
     private String name;
 
-    private int numbet;
+    private int number;
 
     private Date startTime;
 
@@ -34,12 +34,12 @@ public class Seckill {
         this.name = name;
     }
 
-    public int getNumbet() {
-        return numbet;
+    public int getNumber() {
+        return number;
     }
 
-    public void setNumbet(int numbet) {
-        this.numbet = numbet;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public Date getStartTime() {
@@ -71,7 +71,7 @@ public class Seckill {
         return "Seckill{" +
                 "seckillId=" + seckillId +
                 ", name='" + name + '\'' +
-                ", numbet=" + numbet +
+                ", number=" + number +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", createTime=" + createTime +
