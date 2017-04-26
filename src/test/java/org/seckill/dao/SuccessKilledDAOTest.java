@@ -3,6 +3,7 @@ package org.seckill.dao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.seckill.entity.SuccessKilled;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,7 +19,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class SuccessKilledDAOTest {
 
-    @Resource
+    @Autowired
     private SuccessKilledDAO successKilledDAO;
 
     @Test
