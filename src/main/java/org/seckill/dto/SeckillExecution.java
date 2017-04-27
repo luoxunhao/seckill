@@ -1,6 +1,7 @@
 package org.seckill.dto;
 
 import org.seckill.entity.SuccessKilled;
+import org.seckill.enums.SeckillStateEnums;
 
 /**
  * Created by lxh on 2017/4/27.
@@ -9,23 +10,23 @@ public class SeckillExecution {
 
     private long seckillId;
 
-    private short state;
+    private int state;
 
     private String stateInfo;
 
     private SuccessKilled successKilled;
 
-    public SeckillExecution(long seckillId, short state, String stateInfo, SuccessKilled successKilled) {
+    public SeckillExecution(long seckillId, SeckillStateEnums stateEnums, SuccessKilled successKilled) {
         this.seckillId = seckillId;
-        this.state = state;
-        this.stateInfo = stateInfo;
+        this.state = stateEnums.getState();
+        this.stateInfo = stateEnums.getStateInfo();
         this.successKilled = successKilled;
     }
 
-    public SeckillExecution(long seckillId, short state, String stateInfo) {
+    public SeckillExecution(long seckillId, SeckillStateEnums stateEnums) {
         this.seckillId = seckillId;
-        this.state = state;
-        this.stateInfo = stateInfo;
+        this.state = stateEnums.getState();
+        this.stateInfo = stateEnums.getStateInfo();
     }
 
     public long getSeckillId() {
@@ -36,7 +37,7 @@ public class SeckillExecution {
         this.seckillId = seckillId;
     }
 
-    public short getState() {
+    public int getState() {
         return state;
     }
 
