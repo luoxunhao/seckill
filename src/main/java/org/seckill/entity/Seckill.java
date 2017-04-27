@@ -3,7 +3,7 @@ package org.seckill.entity;
 import java.util.Date;
 
 /**
- * Created by lxh on 2017/3/2.
+ * 秒杀表单
  */
 public class Seckill {
     private long seckillId;

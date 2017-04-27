@@ -3,7 +3,7 @@ package org.seckill.entity;
 import java.util.Date;
 
 /**
- * Created by lxh on 2017/3/2.
+ * 秒杀明细记录表
  */
 public class SuccessKilled {
     private long seckillId;
@@ -14,8 +14,6 @@ public class SuccessKilled {
 
     private Date createTime;
 
-    //多对一属性
-
     public Seckill getSeckill() {
         return seckill;
     }
@@ -24,7 +22,8 @@ public class SuccessKilled {
         this.seckill = seckill;
     }
 
-    private Seckill  seckill;
+    //多对一属性，多个秒杀成功记录对应一个秒杀表单
+    private Seckill seckill;
 
     public long getSeckillId() {
         return seckillId;

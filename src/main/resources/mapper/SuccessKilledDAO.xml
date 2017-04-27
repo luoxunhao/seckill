@@ -16,7 +16,7 @@
 
     <select id="queryByIdWithSeckill" resultType="SuccessKilled">
         <!-- 根据id查询SunccessKilled并携带秒杀产品对象实体 -->
-        <!-- 如何告诉MyBatis把结果映射到SuccessKilled同事映射seckill属性 -->
+        <!-- 如何告诉MyBatis把结果映射到SuccessKilled同时映射seckill属性 -->
         <!-- 可以自由控制sql -->
         SELECT
           sk.seckill_id,
