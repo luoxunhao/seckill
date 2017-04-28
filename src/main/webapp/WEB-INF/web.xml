@@ -17,11 +17,7 @@
         -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>
-                classpath:spring/spring-dao.xml,
-                classpath:spring/spring-service.xml,
-                classpath:spring/spring-web.xml
-            </param-value>
+            <param-value>classpath:spring/spring-*.xml,</param-value>
         </init-param>
     </servlet>
 

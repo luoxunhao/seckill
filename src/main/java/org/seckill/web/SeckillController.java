@@ -1,4 +1,4 @@
-package org.seckill.controller;
+package org.seckill.web;
 
 import org.seckill.dao.SeckillResult;
 import org.seckill.dto.Exposer;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by lxh on 2017/4/28.
  */
 @Controller
-@RequestMapping(name = "/seckill") // url:/模块/资源/{id}/细分 /seckill/list
+@RequestMapping("/seckill") // url:/模块/资源/{id}/细分 /seckill/list
 public class SeckillController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -30,7 +30,7 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(name = "/list", method = RequestMethod.GET)
+    @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String list(Model model){
         //获取列表页
         List<Seckill> list = seckillService.getSeckillList();
@@ -39,7 +39,7 @@ public class SeckillController {
         return "list";// /WEB-INF/jsp/list.jsp
     }
 
-    @RequestMapping(name = "/{seckillId}/detail", method = RequestMethod.GET)
+    @RequestMapping(path = "/{seckillId}/detail", method = RequestMethod.GET)
     public String detail(@PathVariable("seckillId") Long seckillId, Model model){
         if (seckillId == null){
             return "redirect:/seckill/list";
@@ -55,7 +55,7 @@ public class SeckillController {
     //POST请求直接在浏览器输入地址无效
     //浏览器地址栏输入的是GET方式
     // ajax接口，返回json
-    @RequestMapping(name = "/{seckillId}/exposer",
+    @RequestMapping(path = "/{seckillId}/exposer",
             method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
     @ResponseBody
@@ -71,7 +71,7 @@ public class SeckillController {
         return result;
     }
 
-    @RequestMapping(name = "/{seckillId}/{md5}/execution",
+    @RequestMapping(path = "/{seckillId}/{md5}/execution",
             method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
     @ResponseBody
@@ -98,7 +98,7 @@ public class SeckillController {
         }
     }
 
-    @RequestMapping(name = "/time/now", method = RequestMethod.GET)
+    @RequestMapping(path = "/time/now", method = RequestMethod.GET)
     @ResponseBody
     public SeckillResult<Long> time(){
         Date now = new Date();
