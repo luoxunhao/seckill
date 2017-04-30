@@ -2,6 +2,7 @@ package org.seckill.service.impl;
 
 import org.seckill.dao.SeckillDAO;
 import org.seckill.dao.SuccessKilledDAO;
+import org.seckill.dao.cache.RedisDAO;
 import org.seckill.dto.Exposer;
 import org.seckill.dto.SeckillExecution;
 import org.seckill.entity.Seckill;
@@ -38,18 +39,30 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDAO successKilledDAO;
 
+    @Autowired
+    private RedisDAO redisDAO;
+
     public List<Seckill> getSeckillList() {
         return seckillDAO.queryAll(0,10);
     }
 
-    public Seckill getById(long seckillId) {
+    public Seckill getById(Long seckillId) {
         return seckillDAO.queryById(seckillId);
     }
 
-    public Exposer exportSeckillUrl(long seckillId) {
-        Seckill seckill = seckillDAO.queryById(seckillId);
+    public Exposer exportSeckillUrl(Long seckillId) {
+        //优化点：缓存优化：超时的基础上维护一致性
+        //1: 访问redis
+        Seckill seckill = redisDAO.getSecill(seckillId);
         if (seckill == null){
-            return new Exposer(false, seckillId);
+            //2:访问数据库
+            seckill = seckillDAO.queryById(seckillId);
+            if (seckill == null){
+                return new Exposer(false, seckillId);
+            }else {
+                //3:放入redis
+                redisDAO.putSeckill(seckill);
+            }
         }
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
@@ -75,7 +88,7 @@ public class SeckillServiceImpl implements SeckillService {
      * 2：保证实务方法的执行时间尽可能短，不要穿插其他网络操作 RPC/HTTP请求或者剥离到事务方法外部。
      * 3：不是所有的方法都需要事务，如只有一条修改操作，只读操作不需要事务控制。
      */
-    public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
+    public SeckillExecution executeSeckill(Long seckillId, Long userPhone, String md5)
             throws SeckillException, RepeatKillException, SeckillCloseException {
         if (md5 == null || !md5.equals(getMD5(seckillId))){
             throw new SeckillException("seckill data rewrite");
