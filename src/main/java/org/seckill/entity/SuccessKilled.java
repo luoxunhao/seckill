@@ -29,8 +29,6 @@ public class SuccessKilled {
         return seckillId;
     }
 
-
-
     public void setSeckillId(long seckillId) {
         this.seckillId = seckillId;
     }
